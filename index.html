@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Équipe — Député Jiovanny William</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #f0f4f8; min-height: 100vh; display: flex; align-items: flex-start; justify-content: center; padding: 32px 16px; font-family: 'Outfit', sans-serif; }
+  .card { background: #fff; border-radius: 16px; width: 100%; max-width: 480px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,92,148,0.10); }
+
+  :root {
+    --blue: #005c94; --teal: #00aa91; --teal-dark: #0095aa;
+    --sky: #a2bfd7; --yellow: #ffff02;
+    --yellow-soft: rgba(255,255,2,0.15); --yellow-border: rgba(255,255,2,0.4);
+    --border: rgba(0,0,0,0.08); --text-main: #1a1a2e; --text-muted: #6b7280;
+  }
+
+  .jw-header { background: var(--blue); padding: 28px 28px 20px; position: relative; overflow: hidden; }
+  .jw-header::before { content: ''; position: absolute; top: -30px; right: -30px; width: 130px; height: 130px; border-radius: 50%; background: rgba(0,170,145,0.12); }
+  .jw-header::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--teal), var(--yellow), var(--teal)); }
+  .jw-name { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 600; color: #fff; letter-spacing: 0.02em; position: relative; }
+  .jw-title { font-size: 11px; color: var(--sky); letter-spacing: 0.14em; text-transform: uppercase; font-weight: 300; margin-top: 3px; position: relative; }
+  .jw-badge { display: inline-block; margin-top: 12px; background: var(--yellow-soft); border: 0.5px solid var(--yellow-border); color: var(--yellow); font-size: 10px; padding: 3px 12px; border-radius: 20px; letter-spacing: 0.08em; position: relative; }
+
+  .jw-body { padding: 24px 20px 0; }
+  .jw-label { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); font-weight: 500; margin: 0 0 16px; display: flex; align-items: center; gap: 8px; }
+  .jw-label::after { content: ''; flex: 1; height: 0.5px; background: var(--border); }
+
+  .depute-card-top { display: flex; align-items: center; gap: 14px; background: var(--blue); border-radius: 10px; padding: 14px 16px; width: fit-content; margin: 0 auto; cursor: pointer; border: 1px solid rgba(0,170,145,0.3); transition: border-color 0.2s; }
+  .depute-card-top:hover, .depute-card-top.active { border-color: var(--teal); border-width: 1.5px; }
+  .dep-name { font-size: 15px; font-weight: 500; color: #fff; margin-bottom: 2px; }
+  .dep-role { font-size: 11px; color: #7fe8dc; font-weight: 300; }
+
+  .av { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 14px; font-weight: 600; flex-shrink: 0; }
+  .av-dep { background: rgba(0,92,148,0.4); color: #fff; border: 1px solid rgba(162,191,215,0.5); }
+  .av-paris { background: rgba(0,92,148,0.12); color: var(--blue); border: 0.5px solid var(--sky); }
+  .av-mq { background: rgba(0,149,170,0.12); color: var(--teal-dark); border: 0.5px solid rgba(0,149,170,0.4); }
+
+  .connector-v { width: 1px; height: 18px; background: var(--teal); opacity: 0.4; margin: 0 auto; }
+  .connector-row { position: relative; width: 100%; height: 1px; margin-bottom: 0; }
+  .connector-h { position: absolute; top: 0; height: 1px; background: var(--teal); opacity: 0.3; left: 15%; right: 15%; }
+
+  .zones { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding-top: 20px; }
+  .zone-block { display: flex; flex-direction: column; gap: 8px; }
+  .zone-title { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; padding: 4px 10px; border-radius: 20px; text-align: center; }
+  .zone-paris { background: rgba(0,92,148,0.08); color: var(--blue); border: 0.5px solid rgba(0,92,148,0.2); }
+  .zone-mq { background: rgba(0,149,170,0.08); color: var(--teal-dark); border: 0.5px solid rgba(0,149,170,0.25); }
+
+  .member-card { background: #fff; border: 0.5px solid var(--border); border-radius: 10px; padding: 12px 10px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; cursor: pointer; transition: border-color 0.2s, transform 0.15s; }
+  .member-card:hover { transform: translateY(-2px); }
+  .member-card.active-paris { border-color: var(--blue); border-width: 1px; }
+  .member-card.active-mq { border-color: var(--teal-dark); border-width: 1px; }
+  .m-name { font-size: 12.5px; font-weight: 500; color: var(--text-main); line-height: 1.3; }
+  .m-role { font-size: 10.5px; color: var(--text-muted); font-weight: 300; line-height: 1.4; }
+  .m-badge { font-size: 9.5px; padding: 2px 7px; border-radius: 20px; }
+  .badge-paris { background: rgba(0,92,148,0.07); color: var(--blue); }
+  .badge-mq { background: rgba(0,149,170,0.07); color: var(--teal-dark); }
+
+  .detail-panel { display: none; margin: 14px 0 0; background: #f8fafc; border: 0.5px solid var(--border); border-radius: 10px; padding: 14px 16px; animation: fadeIn 0.18s ease; }
+  .detail-panel.visible { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+  .dp-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .dp-name { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 600; color: var(--text-main); }
+  .dp-title { font-size: 11px; color: var(--text-muted); }
+  .dp-row { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--text-muted); padding: 5px 0; border-bottom: 0.5px solid var(--border); }
+  .dp-row:last-child { border-bottom: none; }
+  .dp-row i { font-size: 14px; color: var(--teal-dark); flex-shrink: 0; }
+  .dp-row a { color: var(--teal-dark); text-decoration: none; }
+  .permanence-note { font-size: 10px; color: var(--text-muted); background: var(--yellow-soft); border: 0.5px solid var(--yellow-border); border-radius: 6px; padding: 4px 8px; margin-top: 6px; display: flex; align-items: center; gap: 5px; }
+  .permanence-note i { font-size: 12px; color: #b8a000; }
+
+  .jw-footer { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 11px; color: var(--text-muted); padding: 14px 20px 20px; border-top: 0.5px solid var(--border); margin-top: 18px; }
+  .jw-footer i { font-size: 13px; color: var(--teal); }
+  .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--teal); opacity: 0.6; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="jw-header">
+    <p class="jw-name">Député Jiovanny William</p>
+    <p class="jw-title">1ère circonscription de la Martinique · Assemblée Nationale</p>
+    <span class="jw-badge">Mandat 2024 – 2029</span>
+  </div>
+
+  <div class="jw-body">
+    <p class="jw-label">Organigramme</p>
+    <div style="display:flex;flex-direction:column;align-items:center;">
+
+      <div class="depute-card-top" onclick="show('dep')">
+        <div class="av av-dep">JW</div>
+        <div>
+          <p class="dep-name">Jiovanny William</p>
+          <p class="dep-role">Député — 1ère circonscription de la Martinique</p>
+        </div>
+      </div>
+
+      <div class="connector-v"></div>
+      <div class="connector-row"><div class="connector-h"></div></div>
+
+      <div class="zones">
+        <div class="zone-block">
+          <span class="zone-title zone-paris">Paris</span>
+          <div class="member-card" onclick="show('elyssa')">
+            <div class="av av-paris">EL</div>
+            <p class="m-name">Elyssa Laurent</p>
+            <p class="m-role">Conseillère juridique, légistique & lobbying</p>
+            <span class="m-badge badge-paris">Affaires législatives</span>
+          </div>
+        </div>
+        <div class="zone-block">
+          <span class="zone-title zone-mq">Martinique</span>
+          <div class="member-card" onclick="show('annie')">
+            <div class="av av-mq">ALH</div>
+            <p class="m-name">Annie-Laure Hilarus</p>
+            <p class="m-role">Communication & relations presse</p>
+            <span class="m-badge badge-mq">Com & Médiation</span>
+          </div>
+          <div class="member-card" onclick="show('olivier')">
+            <div class="av av-mq">OL</div>
+            <p class="m-name">Olivier Lette</p>
+            <p class="m-role">Chargé de logistique</p>
+            <span class="m-badge badge-mq">Logistique</span>
+          </div>
+          <div class="member-card" onclick="show('celia')">
+            <div class="av av-mq">CLM</div>
+            <p class="m-name">Célia Louis-Marie</p>
+            <p class="m-role">Responsable de la permanence</p>
+            <span class="m-badge badge-mq">Permanence</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-panel" id="p-dep">
+        <div class="dp-head"><div class="av av-dep" style="width:36px;height:36px;font-size:13px;">JW</div><div><p class="dp-name">Jiovanny William</p><p class="dp-title">Député — 1ère circonscription de la Martinique</p></div></div>
+        <div class="dp-row"><i class="ti ti-building-bank"></i> Assemblée Nationale, Paris</div>
+        <div class="dp-row"><i class="ti ti-map-pin"></i> Permanence en Martinique</div>
+        <div class="dp-row"><i class="ti ti-phone"></i> <a href="tel:0596486506">0596 48 65 06</a></div>
+        <div class="permanence-note"><i class="ti ti-info-circle"></i> Numéro de la permanence parlementaire</div>
+      </div>
+
+      <div class="detail-panel" id="p-elyssa">
+        <div class="dp-head"><div class="av av-paris" style="width:36px;height:36px;font-size:13px;">EL</div><div><p class="dp-name">Elyssa Laurent</p><p class="dp-title">Conseillère juridique · Paris</p></div></div>
+        <div class="dp-row"><i class="ti ti-scale"></i> Légistique & lobbying</div>
+        <div class="dp-row"><i class="ti ti-phone"></i> <a href="tel:+33658942884">+33 6 58 94 28 84</a></div>
+        <div class="dp-row"><i class="ti ti-map-pin"></i> Paris</div>
+      </div>
+
+      <div class="detail-panel" id="p-annie">
+        <div class="dp-head"><div class="av av-mq" style="width:36px;height:36px;font-size:12px;">ALH</div><div><p class="dp-name">Annie-Laure Hilarus</p><p class="dp-title">Communication & relations presse · Martinique</p></div></div>
+        <div class="dp-row"><i class="ti ti-speakerphone"></i> Communication, médiation territoriale</div>
+        <div class="dp-row"><i class="ti ti-phone"></i> <a href="tel:+33662528882">+33 6 62 52 88 82</a></div>
+        <div class="dp-row"><i class="ti ti-mail"></i> <a href="mailto:alhilaruspro@gmail.com">alhilaruspro@gmail.com</a></div>
+        <div class="dp-row"><i class="ti ti-map-pin"></i> Le Robert, Martinique</div>
+      </div>
+
+      <div class="detail-panel" id="p-olivier">
+        <div class="dp-head"><div class="av av-mq" style="width:36px;height:36px;font-size:13px;">OL</div><div><p class="dp-name">Olivier Lette</p><p class="dp-title">Logistique · Martinique</p></div></div>
+        <div class="dp-row"><i class="ti ti-truck"></i> Chargé de logistique</div>
+        <div class="dp-row"><i class="ti ti-phone"></i> <a href="tel:0596486506">0596 48 65 06</a></div>
+        <div class="permanence-note"><i class="ti ti-info-circle"></i> Numéro de la permanence parlementaire</div>
+      </div>
+
+      <div class="detail-panel" id="p-celia">
+        <div class="dp-head"><div class="av av-mq" style="width:36px;height:36px;font-size:11px;">CLM</div><div><p class="dp-name">Célia Louis-Marie</p><p class="dp-title">Permanence · Martinique</p></div></div>
+        <div class="dp-row"><i class="ti ti-home"></i> Responsable de la permanence parlementaire</div>
+        <div class="dp-row"><i class="ti ti-phone"></i> <a href="tel:0596486506">0596 48 65 06</a></div>
+        <div class="permanence-note"><i class="ti ti-info-circle"></i> Numéro de la permanence parlementaire</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="jw-footer">
+    <i class="ti ti-touch"></i>
+    Toucher une carte pour afficher les coordonnées
+    <div class="dot"></div>
+    <span style="color:var(--teal-dark);font-size:10px;letter-spacing:0.06em;">ÉQUIPE OFFICIELLE</span>
+  </div>
+</div>
+
+<script>
+  let cur = null;
+  function show(id) {
+    document.querySelectorAll('.detail-panel').forEach(p => p.classList.remove('visible'));
+    document.querySelectorAll('.member-card,.depute-card-top').forEach(c => c.classList.remove('active-paris','active-mq','active'));
+    if (cur === id) { cur = null; return; }
+    document.getElementById('p-' + id).classList.add('visible');
+    cur = id;
+    const card = document.querySelector('[onclick="show(\'' + id + '\')"]');
+    if (!card) return;
+    if (card.classList.contains('depute-card-top')) { card.classList.add('active'); return; }
+    const zone = card.closest('.zone-block');
+    if (zone && zone.querySelector('.zone-paris')) card.classList.add('active-paris');
+    else card.classList.add('active-mq');
+  }
+</script>
+</body>
+</html>
